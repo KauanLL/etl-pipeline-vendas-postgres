@@ -29,4 +29,7 @@ def etl_pipeline(path: str, table_name: str):
     load_task(df, table_name)
 
 if __name__ == "__main__":
-    etl_pipeline("data/vendas.csv", "vendas")
+    from pathlib import Path
+    base = Path(__file__).resolve().parents[1]
+    default_path = base / "data" / "vendas.csv"
+    etl_pipeline(str(default_path), "vendas")

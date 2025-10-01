@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
     container_name: etl_postgres
     environment:
       POSTGRES_USER: etl_user
-      POSTGRES_PASSWORD: eil_pass
+      POSTGRES_PASSWORD: etl_pass
       POSTGRES_DB: vendas_db
     ports:
       - "5432:5432"
@@ -14,4 +12,4 @@ services:
       - pgdata:/var/lib/postgresql/data
 
 volumes:
-  pydata:
+  pgdata: {}

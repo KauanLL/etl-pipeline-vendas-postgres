@@ -1,9 +1,20 @@
-import pandas as pd
+# src/extract.py
 from pathlib import Path
+import pandas as pd
 
-def extract_data():
-    raw_path = Path("../data/raw/")
-    all_files = list(raw_path.glob("*.csv"))
-    df_list = [pd.read_csv(f) for f in all_files]
-    df = pd.concat(df_list, ignore_index=True)
-    return df
+def extract_data(path: str | None = None) -> pd.DataFrame:
+    """
+    Lê CSV. Se `path` for passado, usa-o. Senão, procura `data/vendas.csv`
+    relativo à raiz do projeto (um nível acima de src).
+    """
+    if path:
+        csv_path = Path(path)
+    else:
+        base = Path(__file__).resolve().parents[1]   # pasta raiz do projeto
+        csv_path = base / "data" / "vendas.csv"
+
+    # Mensagem útil em caso de erro
+    if not csv_path.exists():
+        raise FileNotFoundError(f"Arquivo não encontrado: {csv_path}\n(working dir: {Path.cwd()})")
+
+    return pd.read_csv(csv_path)
