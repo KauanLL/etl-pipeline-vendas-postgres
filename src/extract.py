@@ -3,17 +3,13 @@ from pathlib import Path
 import pandas as pd
 
 def extract_data(path: str | None = None) -> pd.DataFrame:
-    """
-    Lê CSV. Se `path` for passado, usa-o. Senão, procura `data/vendas.csv`
-    relativo à raiz do projeto (um nível acima de src).
-    """
+
     if path:
         csv_path = Path(path)
     else:
         base = Path(__file__).resolve().parents[1]   # pasta raiz do projeto
         csv_path = base / "data" / "vendas.csv"
 
-    # Mensagem útil em caso de erro
     if not csv_path.exists():
         raise FileNotFoundError(f"Arquivo não encontrado: {csv_path}\n(working dir: {Path.cwd()})")
 
